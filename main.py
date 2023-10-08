@@ -1,11 +1,11 @@
 import random
 
-MAX_LINES = 3
+MAX_LINES = 6
 MIN_LINES = 1
 MIN_BET = 0
 MAX_BET =100
 
-ROWS = 3
+ROWS = 9
 COLS = 3
 
 
@@ -53,7 +53,7 @@ def print_slot_machine(columns):
         print() # print on the next line
 
 def deposit():
-    tries = 0
+    tries = 0 
     while True:
         if tries > 0:
             amount = input("Re-enter the amount you want to deposit: $")
@@ -103,6 +103,8 @@ def get_bet():
             print("Please re-enter your bet")
     
     return amount
+
+
 def spin(balance):
     lines = get_number_lines()
     while True:
@@ -111,7 +113,20 @@ def spin(balance):
         if total_bet <= balance:
             break
         else:
-            print(f"Your balance is ${balance} which is lower that your bet. Please add money to your balance")
+            print(f"Your balance is ${balance} which is lower than your bet amount. Please add money to your balance")
+            #print("Do you want to add money to your deposit? [y/n]")
+            response = input("Do you want to add money to your deposit? [y/n]: ")
+            if (response == "y" or response == "Y"):
+                add_amount = input("Enter the amount you want to add $ ")
+                if add_amount.isdigit():
+                    add_amount = int(add_amount)   
+                    #new_deposit = deposit(add_amount)
+                    #balance += new_deposit
+                    balance +=add_amount
+                else:
+                    print("Re-enter the amount you want to add")
+            else:
+                print("Place a lower bet ")
     print(f"You are placing ${bet} bet on each line, total bet is ${total_bet}")
     slot = get_slot_machine_spin(ROWS,COLS,symbol_dict)
     print_slot_machine(slot)
